@@ -1,3 +1,4 @@
+'''
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
@@ -56,3 +57,56 @@
   </footer>
 </body>
 </html>
+
+{% extends 'base.html' %}
+
+{% block title %}All Courses Reviews{% endblock %}
+
+{% block stylesheets %}
+    <!-- Additional stylesheets specific to the course rating overview page -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rateMyUogCourse/style-visitor.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="community">
+        <h1>All Courses Reviews</h1>
+        <!-- Search and Filter Section -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search a course here..." class="search-input">
+            <div class="filter-dropdown">
+                <select name="program-type" class="program-type-dropdown">
+                    <option value="">Program Type</option>
+                    <!-- Add other options here -->
+                </select>
+            </div>
+        </div>
+
+        <table>
+            <!-- Table Headers -->
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Overall</th>
+                <th>Difficulty</th>
+                <th>Usefulness</th>
+                <th>Workload</th>
+                <th>Reviews</th>
+                <th>% Would Recommend</th>
+            </tr>
+            <!-- Table Rows with example data -->
+            <!-- Repeat the below <tr>...</tr> block for each course entry -->
+            <tr>
+                <td>COMPSCI 5044</td>
+                <td>Basic Algorithms and Data Structures</td>
+                <td>★★★★★</td>
+                <td>★</td>
+                <td>★★</td>
+                <td>★★★★</td>
+                <td>54</td>
+                <td>60%</td>
+            </tr>
+            <!-- Add more course rows here -->
+        </table>
+    </div>
+{% endblock %}
+

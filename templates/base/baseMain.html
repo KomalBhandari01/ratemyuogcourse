@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Rate My UofG Course{% endblock %}</title>
+    <!-- Base stylesheet link -->
+    <link rel="stylesheet" href="{% static 'css/rateMyUogCourse/styles.css' %}">
+    <!-- Additional stylesheets can be added by child templates -->
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <img src="{% static 'images/UofG_logo.png' %}" alt="UofG Logo" class="logo">
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'rateMyUogCourse:search' None None %}">Courses</a>
+            <!-- Show 'Login' and 'Sign Up' links if the user is not authenticated -->
+            {% if not user.is_authenticated %}
+                <a href="{% url 'rateMyUogCourse:signup' %}">Sign Up</a>
+                <a href="{% url 'rateMyUogCourse:login' %}">Login</a>
+            <!-- Show 'Logout' link if the user is authenticated -->
+            {% else %}
+                <a href="{% url 'rateMyUogCourse:logout' %}">Logout</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main id="content-wrap">
+        <!-- Content block for child templates to inject specific page content -->
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>RateMyUofGCourse © 2024. All rights reserved.</p>
+        <p class="footer-subtitle">Have concerns about our website? <a href="{% url 'rateMyUogCourse:feedback' %}">Give your feedback here!</a></p>
+    </footer>
+</body>
+</html>
