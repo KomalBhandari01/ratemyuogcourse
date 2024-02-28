@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="header">
-    <img src="" alt="UofG Logo" class="logo">
+    <img src="{% static 'images/UoGlogo.jpg' %}" alt="UofG Logo" id="logo">
     <nav>
       <a href="/">Home</a>
       <a href="#">Courses</a>
@@ -37,7 +37,7 @@
         <th>% Would Recommend</th>
       </tr>
       <!-- Repeat this block for each course -->
-      {% for value in search_results.values %}
+      
       <tr>
           <td>{{ value.courseId_id }}</td>
           <td> {{ value.courseName }}</td>
@@ -48,7 +48,7 @@
           <td> {{ value.reviews }}</td>
           <td> {{ value.wouldRecommend }}</td>
       </tr>
-      {% endfor %}
+      
       <!-- Add more course rows here -->
     </table>
   </div>
