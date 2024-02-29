@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Courses Reviews</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/student/style.css' %}">
+</head>
+<body>
+  <header class="header">
+    <img src="{% static 'images/UoGlogo.jpg' %}" alt="UofG Logo" id="logo">
+    <nav>
+      <a href="/">Home</a>
+      <a href="#">Courses</a>
+      <a href="{% url 'rateMyUogCourse:signup' %}">Sign Up</a>
+      <a href="{% url 'rateMyUogCourse:login' %}">Login</a>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search a course here...">
+      <select>
+        <option value="program_type">Program Type</option>
+        <!-- Add more options here -->
+      </select>
+    </div>
+    <table>
+      <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Overall</th>
+        <th>Difficulty</th>
+        <th>Usefulness</th>
+        <th>Workload</th>
+        <th>Reviews</th>
+        <th>% Would Recommend</th>
+      </tr>
+      <!-- Repeat this block for each course -->
+      
+      <tr>
+          <td>{{ value.courseId_id }}</td>
+          <td> {{ value.courseName }}</td>
+          <td> {{ value.overall }}</td>
+          <td> {{ value.difficulty }}</td>
+          <td> {{ value.usefulness }}</td>
+          <td> {{ value.workload }}</td>
+          <td> {{ value.reviews }}</td>
+          <td> {{ value.wouldRecommend }}</td>
+      </tr>
+      
+      <!-- Add more course rows here -->
+    </table>
+  </div>
+
+  <footer class="footer">
+    <p>RateMyUofGCourse © 2024. All rights reserved.</p>
+    <p>Have concerns about our website? <a href="{% url 'rateMyUogCourse:feedback' %}">Give your feedback here!</a></p>
+  </footer>
+</body>
+</html>
