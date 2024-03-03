@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rateMyUogCourse.models import CourseSearchTable
 
 from lecturer.models import Course
-from rateMyUogCourse.forms import WebsiteFeedback
+from rateMyUogCourse.forms import WebsiteFeedback, StudentRegistrationForm
+
 
 # Create your views here.
 from django.http import HttpResponse
@@ -16,7 +17,28 @@ def login(request):
  return render(request, 'rateMyUogCourse/login.html')
 
 def signup(request):
- return render(request, 'rateMyUogCourse/signup.html')
+
+    registered = False
+    
+    if request.method == 'POST':
+    
+        registration_form = StudentRegistrationForm(request.POST)
+        
+        if registration_form.is_valid():
+            student = registration_form.save()
+            
+            # not sure about how to confirm password
+            # student.set_password(user.password)
+            # student.save()
+            
+        else:
+            print(registration_form.errors)
+        
+    else:
+        registration_form = StudentRegistrationForm()
+    return render(request, 'rateMyUogCourse/signup.html')
+ 
+
 
 def feedback(request):
  return render(request, 'rateMyUogCourse/feedbackPage.html')
