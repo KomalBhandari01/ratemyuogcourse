@@ -1,17 +1,22 @@
 from django.db import models
 from lecturer.models import Course
+from django.contrib.auth.models import User
 
 # Create your models here.
 
+        
 class Student(models.Model):
     guid = models.CharField(max_length=7, unique=True, primary_key=True)
-    email = models.CharField(max_length=100)
-    name = models.CharField(max_length=200)
-    password = models.TextField()
     programType = models.CharField(max_length=4)
-        
+    email = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
+    # username = models.CharField(max_length=200,default = name)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+
     def __str__(self):
         return self.guid
+
         
 class CourseFeedback(models.Model):
     feedbackId = models.AutoField(unique = True, primary_key=True)

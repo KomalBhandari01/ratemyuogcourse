@@ -18,7 +18,8 @@
         <h2>Sign Up</h2>
         <p>Sign up to start reviewing courses!</p>
 
-        <form action="/submit-your-form" method="POST">
+        <form method="POST">
+			{% csrf_token %}
             <div class="input-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -30,8 +31,8 @@
             </div>
 
             <div class="input-group">
-                <label for="program-type">Program Type:</label>
-                <select id="program-type" name="program_type" required>
+                <label for="programType">Program Type:</label>
+                <select id="programType" name="programType" required>
                     <option value="">Please select</option>
                     <option value="CS+">CS+</option>
                     <option value="IT+">IT+</option>

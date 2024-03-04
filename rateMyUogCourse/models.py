@@ -1,6 +1,8 @@
 from django.db import models
 from lecturer.models import Course
+
 # Create your models here.
+
 
 class CourseSearchTable(models.Model):
     courseId = models.ForeignKey(Course, on_delete=models.CASCADE)

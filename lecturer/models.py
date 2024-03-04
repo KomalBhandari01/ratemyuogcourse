@@ -1,14 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
+
 class Lecturer(models.Model):
     lecturerId = models.CharField(max_length=20, unique = True, primary_key=True)
     lecturerName = models.CharField(max_length=200)
+    email = models.CharField(max_length=100, unique=True)
     designation = models.CharField(max_length=250)
     password = models.TextField()
+    username = models.CharField(max_length=200,default = lecturerName)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+
     
     def __str__(self):
-        return self.courseName
+        return self.lecturerName
 
         
 class Course(models.Model):
