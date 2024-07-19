@@ -63,6 +63,8 @@ def course_edit(request):
     Handles both adding a new course and editing an existing course. If a course_id is provided via GET, it fetches the
     course for editing. POST requests handle the form submission for both adding and editing courses.
 
+    Lecturers are also assigned to the course from this function only.
+
     :param request: HttpRequest object.
     :return: HttpResponse object. Redirects to the course management page on successful form submission or renders the
     course edit page with context data for form errors or initial data.

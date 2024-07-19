@@ -6,18 +6,18 @@ from django.shortcuts import render
 
 from lecturer.models import Course, Lecturer, LecturerCourseAssignment
 from rateMyUogCourse.models import CourseSearchTable
-from student.forms import CourseFeedback
-from student.models import CourseFeedback as Course_Feedback_Model, Student, StudentFeedbackLikes
+from student.forms import CourseFeedback as Course_Feedback_Form
+from student.models import CourseFeedback as CourseFeedback, Student, StudentFeedbackLikes
 
 
 #Main function, which takes the course feedbacks and save it.
 def save_feedback(request, course_id, guId):
     if request.method == 'POST':
-        form = CourseFeedback(request.POST)
+        form = Course_Feedback_Form(request.POST)
 
         # Check if the form is valid
         if form.is_valid():
-            # Since the form is valid, save the feedback data
+            # Since the form is valid, save the feedback data in CourseFeedback Model
             feedback = form.save()
 
             #Getting the form data for futher calculation
@@ -105,7 +105,7 @@ def show_detailed_rating(request, course_Id, guId):
     course_query_set = Course.objects.filter(courseId=course_Id)
     context_dict['course_name'] = course_query_set[0].courseName.lower().capitalize()
 
-    context_dict['count_reviews'] = Course_Feedback_Model.objects.filter(courseId=course_Id).count()
+    context_dict['count_reviews'] = CourseFeedback.objects.filter(courseId=course_Id).count()
 
     #Fetch the lecturer if for this course
     lecturercourse_query_set = LecturerCourseAssignment.objects.filter(courseId=course_Id)
@@ -115,7 +115,7 @@ def show_detailed_rating(request, course_Id, guId):
     context_dict['lecturer_query_sets'] = Lecturer.objects.filter(lecturerId__in=lecturer_ids)
 
     #Fetch the all the feedbacks for the course
-    detailed_feedback = Course_Feedback_Model.objects.filter(courseId=course_Id)
+    detailed_feedback = CourseFeedback.objects.filter(courseId=course_Id)
 
     context_dict['detailed_feedback'] = detailed_feedback
 
@@ -145,7 +145,7 @@ def mainPage(request):
 def report_feedback(request, feedback_id):
     if request.method == 'POST':
         try:
-            detailed_feedback = get_object_or_404(Course_Feedback_Model, feedbackId=feedback_id)
+            detailed_feedback = get_object_or_404(CourseFeedback, feedbackId=feedback_id)
 
             detailed_feedback.reported = detailed_feedback.reported + 1
 
@@ -163,7 +163,7 @@ def report_feedback(request, feedback_id):
 #so that the same student shouldnt like the same feedback again.
 def like_feedback(request, feedback_id, guId):
     try:
-        detailed_feedback = Course_Feedback_Model.objects.get(feedbackId=feedback_id)
+        detailed_feedback = CourseFeedback.objects.get(feedbackId=feedback_id)
         detailed_feedback.likes += 1
         detailed_feedback.save()
 
